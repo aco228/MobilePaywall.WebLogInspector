@@ -1,0 +1,84 @@
+﻿@{
+  Layout = "~/Views/_Shared/_Layout.cshtml";
+}
+
+<div id="filters">
+  <div id="tableFilter">
+    <div class="divTableFilter">
+      <div class="divTableHeadingFilter">
+        <div class="divTableRowFilter">
+          <div class="divTableHeadFilter">Table</div>
+          <div class="divTableHeadFilter">Top *</div>
+          <div class="divTableHeadFilter">From</div>
+          <div class="divTableHeadFilter">TO</div>
+          <div class="divTableHeadFilter">Level</div>
+          <div class="divTableHeadFilter">Keyword</div>
+        </div>
+      </div>
+      <div class="divTableBodyFilter">
+        <div class="divTableRowFilter">
+          <div class="divTableCellFilter">
+            <select class="tableFilter">
+              <option>WebLog</option>
+              <option>CallbackLog</option>
+              <option>CustomerCareLog</option>
+              <option>MerchantLog</option>
+            </select>
+          </div>
+          <div class="divTableCellFilter"><input type="number" value="" class="topFilter"></div>
+          <div class="divTableCellFilter"><input type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="fromFilter"></div>
+          <div class="divTableCellFilter"><input type="date" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" class="toFilter"></div>
+          <div class="divTableCellFilter"><input type="text" value="" class="levelFilter"></div>
+          <div class="divTableCellFilter"><input type="text" value="" class="keywordFilter"></div>
+          <div class="divTableCellFilter"><a class="btn filterbtn" inuse="false" href="#">Filter</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="table">
+  
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    FilterTable();
+    ViewDetails();
+  });
+
+  function FilterTable() {
+
+    $('.filterbtn').click(function () {
+      if ($(this).attr('inuse') == 'true')
+        return;
+
+      var btn = $(this);
+      btn.attr('inuse', 'true');
+
+      var table = $('.tableFilter').val();
+      var top = $('.topFilter').val();
+      var from = $('.fromFilter').val();
+      var to = $('.toFilter').val();
+      var level = $('.levelFilter').val();
+      var keyword = $('.keywordFilter').val();
+
+      $.ajax({
+        type: 'POST',
+        data: {table: table, top: top, from: from, to: to, level:level, keyword:keyword },
+        url: '@Url.Action("FilterTable", "Home")',
+        success: function (response) {
+          $("#table").html(response);
+          btn.attr('inuse', 'false');
+        }
+      });
+    });
+  }
+
+  function ViewDetails() {
+    $('body').on('dblclick', '.divTableRow', function () {
+      var url = '@Url.Action("ViewDetails", "Detail")?id=' + $(this).attr('logID') + '&tableName=' + $('.tableFilter').val();
+      window.open(url);
+      });
+  }
+</script>

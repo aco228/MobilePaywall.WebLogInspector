@@ -1,0 +1,35 @@
+﻿@model MobilePaywall.WebLogInspector.Models.Home.HomeModel
+
+<div class="divTable">
+  <div class="divTableHeading">
+    <div class="divTableRow">
+      <div class="divTableHead log">LogID</div>
+      <div class="divTableHead date">Date</div>
+      <div class="divTableHead dateDiff">DateDiference</div>
+      <div class="divTableHead thread">Thread</div>
+      <div class="divTableHead level">Level</div>
+      <div class="divTableHead logger">Logger</div>
+      <div class="divTableHead message">Message</div>
+      <div class="divTableHead exception">Exception</div>
+      <div class="divTableHead method">Method</div>
+      <div class="divTableHead line">Line</div>
+    </div>
+  </div>
+  <div class="divTableBody">
+    @foreach (MobilePaywall.WebLogInspector.Models.Home.LogResultModel log in Model.RowsList)
+    {
+      <div class="divTableRow @log.Level.ToLower()" logID="@log.ID">
+        <div class="divTableCell log">@log.ID</div>
+        <div class="divTableCell date">@log.Date</div>
+        <div class="divTableCell dateDiff">@log.DateDifference</div>
+        <div class="divTableCell thread">@log.Thread</div>
+        <div class="divTableCell level">@log.Level</div>
+        <div class="divTableCell logger">@log.Logger</div>
+        <div class="divTableCell message">@log.Messsage</div>
+        <div class="divTableCell exception">@log.Exception</div>
+        <div class="divTableCell method">@log.Method</div>
+        <div class="divTableCell line">@log.Line</div>
+      </div>
+    }    
+  </div>
+</div>

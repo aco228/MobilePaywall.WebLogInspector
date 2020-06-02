@@ -1,0 +1,17 @@
+﻿@model MobilePaywall.WebLogInspector.Models.Home.LogResultModel
+@{
+    Layout = "~/Views/_Shared/_Layout.cshtml";
+}
+
+<div class="divTableRow @Model.Level.ToLower()" logID="">
+  <div class="divTableCell log">@Model.ID</div>
+  <div class="divTableCell date">@Model.Date</div>
+  <div class="divTableCell dateDiff">@Model.DateDifference</div>
+  <div class="divTableCell thread">@Model.Thread</div>
+  <div class="divTableCell level">@Model.Level</div>
+  <div class="divTableCell logger">@Model.Logger</div>
+  <div class="divTableCell message">@Model.Messsage</div>
+  <div class="divTableCell exception">@Model.Exception</div>
+  <div class="divTableCell method">@Model.Method</div>
+  <div class="divTableCell line">@Model.Line</div>
+</div>
